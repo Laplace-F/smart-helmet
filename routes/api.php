@@ -18,3 +18,7 @@ Route::post('/telemetry', [HelmetController::class, 'storeTelemetry']);
 
 // Endpoint untuk menerima data peringatan (jatuh atau SOS)
 Route::post('/alert', [HelmetController::class, 'storeAlert']);
+
+
+
+// testtttt
