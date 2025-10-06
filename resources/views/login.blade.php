@@ -18,14 +18,16 @@
           <form method="POST" action="{{ route('login.submit') }}">
             @csrf
             <label class="field-label">Email</label>
-            <input type="email" name="email" class="underline-input" required>
+            <input type="email" id="email" name="email" class="underline-input" required>
 
             <label class="field-label">Password</label>
-            <input type="password" name="password" class="underline-input" required>
+            <input type="password" id="password" name="password" class="underline-input" required>
 
             <button class="btn" type="submit">Log In</button>
 
-            <p class="small">By clicking continue, you agree to our <strong>Terms of Service</strong> and <strong>Privacy Policy</strong></p>
+            <p class="small">
+              By clicking continue, you agree to our <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>
+            </p>
           </form>
         </div>
       </div>
@@ -34,7 +36,7 @@
         <div class="hero">
           <h1 class="brand">Smart<br>Helmet</h1>
           <div class="illustration">
-            <img src="{{ Vite::asset('resources/assets/images/logo.webp') }}" alt="Logo">
+            <img src="{{ Vite::asset('resources/assets/images/logo.jpg') }}" alt="Logo">
           </div>
         </div>
       </div>
