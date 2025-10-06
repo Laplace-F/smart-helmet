@@ -1,26 +1,44 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Models\UserLogin;
+use Illuminate\Support\Facades\Hash;
 
-// halaman utama
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-// halaman login
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-// proses login (POST)
 Route::post('/login', function (Request $request) {
-    $email = $request->input('email');
-    $password = $request->input('password');
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-    if ($email === 'admin@example.com' && $password === '123456') {
-        return redirect('/')->with('success', 'Login berhasil');
+    // Ambil data user dari tabel user_login
+    $user = UserLogin::where('email', $request->email)->first();
+
+    // Cek apakah user ditemukan dan password cocok
+    if ($user && $user->password === $request->password) {
+        // Jika password di database belum di-hash, gunakan cara ini
+        session(['user' => $user]);
+        return redirect()->route('home')->with('success', 'Login berhasil');
     }
 
-    return back()->withErrors(['email' => 'Email atau password salah']);
+    // Jika password disimpan dalam bentuk hash bcrypt, pakai ini:
+    // if ($user && Hash::check($request->password, $user->password)) {
+    //     session(['user' => $user]);
+    //     return redirect()->route('home')->with('success', 'Login berhasil');
+    // }
+
+    return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
 })->name('login.submit');
+
+Route::get('/', function () {
+    $user = session('user');
+    return view('welcome', compact('user'));
+})->name('home');
+
+Route::get('/logout', function () {
+    session()->forget('user');
+    return redirect()->route('login')->with('success', 'Anda telah logout.');
+})->name('logout');
