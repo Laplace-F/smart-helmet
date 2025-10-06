@@ -2,7 +2,13 @@
 
 use Illuminate\Http\Request;
 use App\Models\UserLogin;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 Route::get('/login', function () {
     return view('login');
@@ -14,28 +20,26 @@ Route::post('/login', function (Request $request) {
         'password' => 'required'
     ]);
 
-    // Ambil data user dari tabel user_login
     $user = UserLogin::where('email', $request->email)->first();
 
-    // Cek apakah user ditemukan dan password cocok
     if ($user && $user->password === $request->password) {
-        // Jika password di database belum di-hash, gunakan cara ini
         session(['user' => $user]);
         return redirect()->route('home')->with('success', 'Login berhasil');
     }
 
-    // Jika password disimpan dalam bentuk hash bcrypt, pakai ini:
-    // if ($user && Hash::check($request->password, $user->password)) {
-    //     session(['user' => $user]);
-    //     return redirect()->route('home')->with('success', 'Login berhasil');
-    // }
-
     return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
 })->name('login.submit');
 
-Route::get('/', function () {
+Route::get('/home', function () {
     $user = session('user');
-    return view('welcome', compact('user'));
+    if (!$user) return redirect()->route('login');
+
+    // Jika tabel/kolom belum ada, ganti dengan 0
+    $jumlahPekerja = 0;
+    $online = 0;
+    $insidenHariIni = 0;
+
+    return view('home', compact('user', 'jumlahPekerja', 'online', 'insidenHariIni'));
 })->name('home');
 
 Route::get('/logout', function () {
