@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Helmet - Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @vite(['resources/css/app.css', 'resources/css/styles.css', 'resources/js/app.js'])
 </head>
 <body>
   <div class="page-wrap">
@@ -36,7 +36,7 @@
         <div class="hero">
           <h1 class="brand">Smart<br>Helmet</h1>
           <div class="illustration">
-            <img src="{{ Vite::asset('resources/assets/images/logo.jpg') }}" alt="Logo">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Logo">
           </div>
         </div>
       </div>
