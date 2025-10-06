@@ -18,3 +18,6 @@ Route::post('/login', function (Request $request) {
     }
 })->name('login.submit');
 
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
