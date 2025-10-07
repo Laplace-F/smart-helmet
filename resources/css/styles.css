@@ -46,3 +46,51 @@ html,body{height:100%;margin:0;font-family:Roboto,system-ui,-apple-system,"Segoe
 .brand{font-size:56px;right:20px;top:8px}
 .card{width:92%;height:auto;padding:28px}
 }
+
+body {
+    background-color: #f9fafb;
+    font-family: "Poppins", sans-serif;
+}
+
+.sidebar {
+    background-color: #406c3f;
+    color: white;
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    padding: 20px;
+}
+
+.menu a {
+    display: block;
+    background: #f4c542;
+    color: black;
+    padding: 8px 10px;
+    margin: 6px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.menu a:hover {
+    background: #ffde59;
+}
+
+.profile {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 40px;
+}
